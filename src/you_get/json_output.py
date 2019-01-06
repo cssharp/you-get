@@ -11,6 +11,7 @@ def output(video_extractor, pretty_print=True):
     out['title'] = ve.title
     out['site'] = ve.name
     out['streams'] = ve.streams
+    out['cover'] = ve.cover
     try:
         if ve.audiolang:
             out['audiolang'] = ve.audiolang
@@ -32,7 +33,7 @@ def output(video_extractor, pretty_print=True):
 class VideoExtractor(object):
     pass
 
-def print_info(site_info=None, title=None, type=None, size=None):
+def print_info(site_info=None, title=None, type=None, size=None, **kwargs):
     global last_info
     # create a VideoExtractor and save info for download_urls()
     ve = VideoExtractor()
@@ -40,6 +41,10 @@ def print_info(site_info=None, title=None, type=None, size=None):
     ve.name = site_info
     ve.title = title
     ve.url = None
+    ve.cover = None
+    if 'cover' in kwargs:
+        ve.cover = kwargs['cover']
+
 
 def download_urls(urls=None, title=None, ext=None, total_size=None, refer=None):
     ve = last_info

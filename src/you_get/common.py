@@ -1096,7 +1096,7 @@ def playlist_not_supported(name):
 def print_info(site_info, title, type, size, **kwargs):
     if json_output:
         json_output_.print_info(
-            site_info=site_info, title=title, type=type, size=size
+            site_info=site_info, title=title, type=type, size=size, **kwargs
         )
         return
     if type:
@@ -1181,6 +1181,8 @@ def print_info(site_info, title, type, size, **kwargs):
         )
     if type == 'm3u8' and 'm3u8_url' in kwargs:
         print('M3U8 Url:   {}'.format(kwargs['m3u8_url']))
+    if 'cover' in kwargs:
+        print('Cover Url:   {}'.format(kwargs['cover']))
     print()
 
 

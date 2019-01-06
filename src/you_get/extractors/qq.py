@@ -7,7 +7,7 @@ from .qie_video import download_by_url as qie_video_download
 from ..common import *
 
 
-def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False):
+def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, cover=''):
 
     # http://v.sports.qq.com/#/cover/t0fqsm1y83r8v5j/a0026nvw5jr https://v.qq.com/x/cover/t0fqsm1y83r8v5j/a0026nvw5jr.html
     video_json = None
@@ -63,7 +63,7 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False):
         _, ext, size = url_info(url)
         total_size += size
 
-    print_info(site_info, title, ext, total_size)
+    print_info(site_info, title, ext, total_size, cover=cover)
     if not info_only:
         download_urls(part_urls, title, ext, total_size, output_dir=output_dir, merge=merge)
 
@@ -173,10 +173,12 @@ def qq_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
         title = match1(content, r'title">([^"]+)</p>') if not title else title
         title = match1(content, r'"title":"([^"]+)"') if not title else title
         title = vid if not title else title #general fallback
+        cover = match1(content, r'"pic_640_360":"([^"]+)"')
 
 
-    qq_download_by_vid(vid, title, output_dir, merge, info_only)
 
-site_info = "QQ.com"
+    qq_download_by_vid(vid, title, output_dir, merge, info_only, cover)
+
+site_info = "QQ"
 download = qq_download
 download_playlist = playlist_not_supported('qq')
