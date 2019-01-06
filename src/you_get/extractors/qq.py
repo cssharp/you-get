@@ -11,7 +11,7 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
 
     # http://v.sports.qq.com/#/cover/t0fqsm1y83r8v5j/a0026nvw5jr https://v.qq.com/x/cover/t0fqsm1y83r8v5j/a0026nvw5jr.html
     video_json = None
-    platforms = [10201, 4100201, 11]
+    platforms = ["10201","70201","3670201","10901","70901","4100201", '11']
     for platform in platforms:
         info_api = 'http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform={}&defnpayver=1&defn=shd&vid={}'.format(platform, vid)
         info = get_content(info_api)
