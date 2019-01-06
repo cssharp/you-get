@@ -11,7 +11,7 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
 
     # http://v.sports.qq.com/#/cover/t0fqsm1y83r8v5j/a0026nvw5jr https://v.qq.com/x/cover/t0fqsm1y83r8v5j/a0026nvw5jr.html
     video_json = None
-    platforms = ["10201","70201","3670201","10901","70901","4100201", '11']
+    platforms = ["10201", '11', "70201","3670201","10901","70901","4100201"]
     for platform in platforms:
         info_api = 'http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform={}&defnpayver=1&defn=shd&vid={}'.format(platform, vid)
         info = get_content(info_api)
@@ -44,13 +44,12 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
         key_api = "http://vv.video.qq.com/getkey?otype=json&platform={}&format={}&vid={}&filename={}&appver=3.2.19.333".format(platform, part_format_id, vid, filename)
         part_info = get_content(key_api)
         key_json = json.loads(match1(part_info, r'QZOutputJson=(.*)')[:-1])
-
-        vkey = video_json['vl']['vi'][0]['fvkey']
-        url = '{}{}?vkey={}'.format(host, filename, vkey)
-        if key_json.get('key'):
+        if key_json.get('key') is None:
+            vkey = video_json['vl']['vi'][0]['fvkey']
+            url = '{}{}?vkey={}'.format(host, filename, vkey)
+        else:
             vkey = key_json['key']
             url = '{}{}?vkey={}'.format(host, filename, vkey)
-
         if not vkey:
             if part == 1:
                 log.wtf(key_json['msg'])
@@ -178,9 +177,8 @@ def qq_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
         cover = match1(content, r'"pic_640_360":"([^"]+)"')
 
 
-
     qq_download_by_vid(vid, title, output_dir, merge, info_only, cover)
 
-site_info = "QQ"
+site_info = "QQ.com"
 download = qq_download
 download_playlist = playlist_not_supported('qq')
