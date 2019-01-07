@@ -11,9 +11,9 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
 
     # http://v.sports.qq.com/#/cover/t0fqsm1y83r8v5j/a0026nvw5jr https://v.qq.com/x/cover/t0fqsm1y83r8v5j/a0026nvw5jr.html
     video_json = None
-    platforms = ["10201", '11', "70201","3670201","10901","70901","4100201"]
+    platforms = ["4100201", '11', "10201", "70201","3670201","10901","70901"]
     for platform in platforms:
-        info_api = 'http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform={}&defnpayver=1&defn=shd&vid={}'.format(platform, vid)
+        info_api = 'http://vv.video.qq.com/getinfo?otype=json&appver=3.2.19.333&platform={}&defnpayver=1&defn=sd&vid={}'.format(platform, vid)
         info = get_content(info_api)
         video_json = json.loads(match1(info, r'QZOutputJson=(.*)')[:-1])
         if not video_json.get('msg')=='cannot play outside':
@@ -41,7 +41,7 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
             part_format_id = video_json['vl']['vi'][0]['cl']['ci'][part - 1]['keyid'].split('.')[1]
             filename = '.'.join([fn_pre, magic_str, str(part), video_type])
 
-        key_api = "http://vv.video.qq.com/getkey?otype=json&platform={}&format={}&vid={}&filename={}&appver=3.2.19.333".format(platform, part_format_id, vid, filename)
+        key_api = "http://vv.video.qq.com/getkey?otype=json&platform=10201&format={}&vid={}&filename={}&appver=3.2.19.333".format(part_format_id, vid, filename)
         part_info = get_content(key_api)
         key_json = json.loads(match1(part_info, r'QZOutputJson=(.*)')[:-1])
         if key_json.get('key') is None:
