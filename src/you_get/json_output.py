@@ -11,7 +11,11 @@ def output(video_extractor, pretty_print=True):
     out['title'] = ve.title
     out['site'] = ve.name
     out['streams'] = ve.streams
-    out['cover'] = ve.cover
+    try:
+        if ve.cover:
+            out['cover'] = ve.cover
+    except AttributeError:
+        pass
     try:
         if ve.audiolang:
             out['audiolang'] = ve.audiolang
