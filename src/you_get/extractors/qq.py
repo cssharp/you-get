@@ -64,7 +64,7 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
         _, ext, size = url_info(url)
         total_size += size
 
-    print_info(site_info, title, ext, total_size, cover=cover)
+    print_info(site_info, title, ext, total_size, cover=cover, vid=vid)
     if not info_only:
         download_urls(part_urls, title, ext, total_size, output_dir=output_dir, merge=merge)
 

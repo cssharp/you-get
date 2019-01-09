@@ -49,6 +49,8 @@ def print_info(site_info=None, title=None, type=None, size=None, **kwargs):
     ve.cover = None
     if 'cover' in kwargs:
         ve.cover = kwargs['cover']
+    if 'vid' in kwargs:
+        ve.vid = kwargs['vid']
 
 
 def download_urls(urls=None, title=None, ext=None, total_size=None, refer=None):
