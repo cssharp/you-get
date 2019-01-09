@@ -9,6 +9,7 @@ def output(video_extractor, pretty_print=True):
     out = {}
     out['url'] = ve.url
     out['title'] = ve.title
+    out['vid'] = ve.vid
     out['site'] = ve.name
     out['streams'] = ve.streams
     try:

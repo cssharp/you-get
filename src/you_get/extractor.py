@@ -11,6 +11,7 @@ class Extractor():
         self.url = None
         self.title = None
         self.vid = None
+        self.cover = None
         self.streams = {}
         self.streams_sorted = []
 
@@ -22,6 +23,7 @@ class VideoExtractor():
         self.url = None
         self.title = None
         self.vid = None
+        self.cover = None
         self.m3u8_url = None
         self.streams = {}
         self.streams_sorted = []
@@ -133,6 +135,7 @@ class VideoExtractor():
     def p(self, stream_id=None):
         maybe_print("site:                %s" % self.__class__.name)
         maybe_print("title:               %s" % self.title)
+        maybe_print("cover:               %s" % self.cover)
         if stream_id:
             # Print the stream
             print("stream:")

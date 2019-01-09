@@ -190,6 +190,7 @@ class Youku(VideoExtractor):
                 log.wtf('Unknown error')
 
         self.title = self.api_data['video']['title']
+        self.cover = self.api_data['video']['logo']
         stream_types = dict([(i['id'], i) for i in self.stream_types])
         audio_lang = self.api_data['stream'][0]['audio_lang']
 
