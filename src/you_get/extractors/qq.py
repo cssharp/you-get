@@ -41,12 +41,12 @@ def qq_download_by_vid(vid, title, output_dir='.', merge=True, info_only=False, 
             part_format_id = video_json['vl']['vi'][0]['cl']['ci'][part - 1]['keyid'].split('.')[1]
             filename = '.'.join([fn_pre, magic_str, str(part), video_type])
 
-        key_api = "http://vv.video.qq.com/getkey?otype=json&platform=10201&format={}&vid={}&filename={}&appver=3.2.19.333".format(part_format_id, vid, filename)
+        key_api = "http://vv.video.qq.com/getkey?otype=json&platform=11&format={}&vid={}&filename={}&appver=3.2.19.333".format(part_format_id, vid, filename)
         part_info = get_content(key_api)
         key_json = json.loads(match1(part_info, r'QZOutputJson=(.*)')[:-1])
         if key_json.get('key') is None:
             vkey = video_json['vl']['vi'][0]['fvkey']
-            url = '{}{}?vkey={}'.format(host, filename, vkey)
+            url = '{}{}?vkey={}'.format(video_json['vl']['vi'][0]['ul']['ui'][0]['url'], fn_pre + '.mp4', vkey)
         else:
             vkey = key_json['key']
             url = '{}{}?vkey={}'.format(host, filename, vkey)
